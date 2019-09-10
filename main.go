@@ -22,7 +22,35 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		cmdArg = arr[1]
 	}
 
+	if cmdName == "List" || cmdName == "Help" {
+		commandsType := reflect.TypeOf(&commands.Commands{})
+
+		var html strings.Builder
+		html.WriteString("<h1>gopherlol command list</h1>")
+		html.WriteString("<ul>")
+		for i := 0; i < commandsType.NumMethod(); i++ {
+			method := commandsType.Method(i)
+
+			takesArgs := ""
+			if method.Type.NumIn() == 1 {
+				takesArgs = ", takes args"
+			}
+			html.WriteString(fmt.Sprintf(
+				"<li><strong>%s</strong>%s</li>",
+				strings.ToLower(method.Name),
+				takesArgs,
+			))
+		}
+		html.WriteString("</ul>")
+
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		w.WriteHeader(http.StatusOK)
+		_, _ = fmt.Fprint(w, html.String())
+		return
+	}
+
 	cmdMethod := reflect.ValueOf(commandsObject).MethodByName(cmdName)
+
 	if cmdMethod == reflect.ValueOf(nil) {
 		// cmdMethod not found => fall back to google
 		url := fmt.Sprintf("https://www.google.com/#q=%s", url.QueryEscape(q))
