@@ -47,6 +47,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			http.StatusText(http.StatusInternalServerError),
 			http.StatusInternalServerError,
 		)
+		return
 	}
 
 	http.Redirect(w, r, url, http.StatusSeeOther)
