@@ -32,7 +32,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			method := commandsType.Method(i)
 
 			takesArgs := ""
-			if method.Type.NumIn() == 1 {
+			if method.Type.NumIn() == 2 {
 				takesArgs = ", takes args"
 			}
 			html.WriteString(fmt.Sprintf(
