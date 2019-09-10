@@ -11,5 +11,5 @@ go run .
 - Instructions for all major browsers: [How-To Geek: How to Add Any Search Engine to Your Web Browser](https://www.howtogeek.com/114176/how-to-easily-create-search-plugins-add-any-search-engine-to-your-browser/)
 
 ## FAQ
-- Where are the commands currently supported by gopherlol? => See `commands/commands.go`
+- Where are the commands currently supported by gopherlol? => See [commands/commands.go](commands/commands.go)
 - Why would a company run such a service internally? => Read about [how Facebook uses it internally](http://www.ccheever.com/blog/?p=74)
