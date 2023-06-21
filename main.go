@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/markusdosch/gopherlol/commands"
 	"log"
 	"net/http"
 	"net/url"
 	"reflect"
 	"strings"
+
+	"./commands"
 )
 
 var commandsObject = new(commands.Commands)
@@ -53,7 +54,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	if cmdMethod == reflect.ValueOf(nil) {
 		// cmdMethod not found => fall back to google
-		url := fmt.Sprintf("https://www.google.com/#q=%s", url.QueryEscape(q))
+		url := fmt.Sprintf("https://www.google.com/search?q=%s", url.QueryEscape(q))
 		http.Redirect(w, r, url, http.StatusSeeOther)
 		return
 	}
@@ -84,5 +85,5 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", handler)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":1010", nil))
 }
